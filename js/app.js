@@ -13,7 +13,7 @@ angular.module('mobieApp', ['ui.bootstrap'])
 })
 .run(function($rootScope, globalServerRoute)
 {
-	if(window.location.href.indexOf("localhost")) {
+	if(window.location.href.indexOf("localhost") > 0) {
 		$rootScope.api  = globalServerRoute.apiRouteDev;
 		$rootScope.site = globalServerRoute.siteRouteDev;	
 	} else {

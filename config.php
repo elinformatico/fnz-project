@@ -1,10 +1,13 @@
 <?php
 	
-	# define('TEMPLATE', 'prueba');
 	define('TEMPLATE', 'main');
 
-	define('APP_BASE', 'http://localhost/uag/fnz-project/');
-    //define('APP_BASE', 'http://noehdez.info/site');
+	$app_base = strstr($_SERVER['HTTP_HOST'], 'localhost') ? 
+
+	'http://localhost/uag/fnz-project' :    # DEVELOPMENT
+	'https://noehdez.info/site';            # PRODUCTION
+
+	define('APP_BASE', $app_base);
 	define('JS_PATH', APP_BASE . '/js');
 	define('CSS_PATH', APP_BASE . '/css');
 

@@ -1,13 +1,23 @@
 angular.module('mobieApp', ['ui.bootstrap'])
 .constant('globalServerRoute', {
 
-	apiRoute  : 'http://localhost/uag/mobie.api/public/mobie', 
-	siteRoute : 'http://localhost/uag/fnz-project',
+	// DEVELOPMENT
+	// -----------------------------------------------------------
+	apiRouteDev  : 'http://localhost/uag/mobie.api/public/mobie', 
+	siteRouteDev : 'http://localhost/uag/fnz-project',
 
-	//apiRoute  : 'http://noehdez.info/api/public/mobie',
-    //siteRoute : 'http://noehdez.info/site'
+	// PRODUCTION
+	// -----------------------------------------------------------
+	apiRouteProduction  : 'https://noehdez.info/api/public/mobie',
+    siteRouteProduction : 'https://noehdez.info/site'
 })
-.run(function($rootScope, globalServerRoute){
-	$rootScope.api  = globalServerRoute.apiRoute;
-	$rootScope.site = globalServerRoute.siteRoute;
+.run(function($rootScope, globalServerRoute)
+{
+	if(window.location.href.indexOf("localhost")) {
+		$rootScope.api  = globalServerRoute.apiRouteDev;
+		$rootScope.site = globalServerRoute.siteRouteDev;	
+	} else {
+		$rootScope.api  = globalServerRoute.apiRouteDevProduction;
+		$rootScope.site = globalServerRoute.siteRouteDevProduction;
+	}
 });

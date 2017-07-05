@@ -1,6 +1,14 @@
 <?php
 	
-	define('TEMPLATE', 'main');
+	if(isset($_REQUEST['v']) && $_REQUEST['v'] == 'true') {
+		define('TEMPLATE', 'main');	
+
+	} else if(isset($_REQUEST['v']) && $_REQUEST['v'] == 'fnz') {
+		define('TEMPLATE', 'examples/finanzas.template');	
+
+	} else {
+		header('Location: http://me.noehdez.info');
+	}
 
 	$app_base = strstr($_SERVER['HTTP_HOST'], 'localhost') ? 
 

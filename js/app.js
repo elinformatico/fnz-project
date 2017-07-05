@@ -17,7 +17,7 @@ angular.module('mobieApp', ['ui.bootstrap'])
 		$rootScope.api  = globalServerRoute.apiRouteDev;
 		$rootScope.site = globalServerRoute.siteRouteDev;	
 	} else {
-		$rootScope.api  = globalServerRoute.apiRouteDevProduction;
-		$rootScope.site = globalServerRoute.siteRouteDevProduction;
+		$rootScope.api  = globalServerRoute.apiRouteProduction;
+		$rootScope.site = globalServerRoute.siteRouteProduction;
 	}
 });

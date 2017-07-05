@@ -5,7 +5,7 @@ angular.module('mobieApp')
 	var dataFactory = {};
 
     var transform = function(data){
-        return $.param(data);
+        return jQuery.param(data);
     }
 
     // ----------------------- Ejemplos -------------------------
@@ -37,6 +37,13 @@ angular.module('mobieApp')
 
     dataFactory.getActorsMovie = function(movieId){
         return $http.get( restUrl + '/movies/actors/' + movieId );
+    }
+
+    dataFactory.storeGasolina = function(data){
+      return $http.post(restUrl + '/registrar/gasolina', data, {
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+          transformRequest: transform
+      });
     }
     
     return dataFactory;

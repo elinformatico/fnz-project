@@ -1,8 +1,8 @@
 angular.module('mobieApp')
 .factory('apiFactoryRest', ['$rootScope', '$http',  function( $rootScope, $http ){
 
-	var restUrl = $rootScope.api;
-	var dataFactory = {};
+    var restUrl = $rootScope.api;
+    var dataFactory = {};
 
     var transform = function(data){
         return jQuery.param(data);
@@ -32,11 +32,15 @@ angular.module('mobieApp')
     } 
 
     dataFactory.getMovies = function(){
-      	return $http.get(restUrl + '/get/movies');
+        return $http.get(restUrl + '/get/movies');
     }
 
     dataFactory.getActorsMovie = function(movieId){
         return $http.get( restUrl + '/movies/actors/' + movieId );
+    }
+
+    dataFactory.getMaximoKilometraje = function(){
+        return $http.get( restUrl + '/get/kilometraje');
     }
 
     dataFactory.storeGasolina = function(data){

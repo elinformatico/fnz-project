@@ -85,35 +85,43 @@
 </div>
   
   <div class="container">    
-    
-    <div class="form-group">
-        <label class="control-label" for="litros"># Litros</label>
-        <input type="text" class="form-control" id="litros" ng-model='litros' aria-describedby="inputSuccess2Status">
-    </div>
 
-    <div class="form-group">
-        <label class="control-label" for="tipoGasolina">Tipo Gasolina</label>
-        <select class="form-control" id="tipoGasolina" ng-model='tipoGasolina'>
-          <option value="magna" selected>Magna</option>
-          <option value="premium">Premium</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label" for="montoGasolina">Monto Gasolina</label>
-        <div class="input-group">
-            <span class="input-group-addon">$</span>
-            <input type="text" class="form-control" id="montoGasolina" ng-model='montoGasolina'>
+    <form name='frmGasolina' novalidate>
+        <div class="form-group">
+            <label class="control-label" for="litros"># Litros</label>
+            <input type="number" class="form-control" id="litros" ng-model='litros' required>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label" for="kilometraje">Kilometraje</label>
-        <input type="text" class="form-control" id="kilometraje" ng-model='kilometraje'>
-    </div>
-    <div class="form-group">
-        <button type="button" class="btn btn-primary btn-lg" ng-click='fn.guardar()'>Guardar Gasolina</button>
-    </div>
+        <div class="form-group">
+            <label class="control-label" for="tipoGasolina">Tipo Gasolina</label>
+            <select class="form-control" id="tipoGasolina" ng-model='tipoGasolina' required>
+              <option value="magna" selected>Magna</option>
+              <option value="premium">Premium</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="montoGasolina">Monto Gasolina</label>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="number" class="form-control" id="montoGasolina" ng-model='montoGasolina' required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="kilometraje">Kilometraje</label>
+            <input type="number" class="form-control" id="kilometraje" ng-model='kilometraje' required>
+            <label style="font-size: 10px;">Último Kilometraje registrado: {{ ultimoKilometraje }}</label>
+        </div>
+        <div class="form-group">
+            <button 
+                type="button" 
+                class="btn btn-primary btn-lg" 
+                ng-click='fn.guardar()'>
+                Guardar Gasolina
+            </button>
+        </div>
+    </form>
 
 </div>
 

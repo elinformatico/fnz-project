@@ -1,10 +1,10 @@
 <?php
 	
 	if(isset($_REQUEST['v']) && $_REQUEST['v'] == 'true') {
-		define('TEMPLATE', 'main');	
+		define('TEMPLATE', 'peliculas');	
 
 	} else if(isset($_REQUEST['v']) && $_REQUEST['v'] == 'fnz') {
-		define('TEMPLATE', 'examples/finanzas.template');	
+		define('TEMPLATE', 'gasolina');	
 
 	} else {
 		header('Location: http://me.noehdez.info');

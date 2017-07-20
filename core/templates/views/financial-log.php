@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="mobieApp">
 <head>
-  <title>Registro Gasolina</title>
+  <title>Registro de Gastos / Ingresos</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -35,7 +35,7 @@
   <!-- Modules & Angular Controllers -->
   <!-- ================================================================================= -->
   <script src="<?php echo $global['app_base']; ?>/js/webservices/apiFactoryRest.js"></script>
-  <script src="<?php echo $global['app_base']; ?>/js/controllers/registroGasolinaCtrl.js"></script>
+  <script src="<?php echo $global['app_base']; ?>/js/controllers/financialLogCtrl.js"></script>
   <!-- ================================================================================= -->
 
   <style>
@@ -52,7 +52,7 @@
    }
  </style>
 </head>
-<body ng-controller="registroGasolinaCtrl">
+<body ng-controller="financialLogCtrl">
 
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -66,9 +66,9 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-            <li><a href="?v=true">Mobie</a></li>
-            <li class="active"><a href="?v=fnz">Gasolina</a></li>
-            <li><a href="?v=flog">Gastos / Ingresos</a></li>
+          <li><a href="?v=true">Mobie</a></li>
+          <li><a href="?v=fnz">Gasolina</a></li>
+          <li class="active"><a href="?v=flog">Gastos / Ingresos</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -79,8 +79,8 @@
 
  <div class="jumbotron">
   <div class="container text-center">
-    <h1>Registro de Gasolina</h1>      
-    <p>Introducir todos los datos necesarios para registrar gasolina</p>
+    <h1>Registros de Gastos / Ingresos</h1>
+    <p>Introducir todos los datos necesarios para registrar</p>
   </div>
 </div>
   
@@ -88,43 +88,53 @@
 
     <form name='frmGasolina' novalidate>
         <div class="form-group">
-            <label class="control-label" for="litros"># Litros</label>
-            <input type="number" class="form-control" id="litros" ng-model='litros' required>
+            <label class="control-label" for="descripcion">Descripción</label>
+            <input type="text" class="form-control" id="log_description" ng-model='descripcion' required>
         </div>
 
         <div class="form-group">
-            <label class="control-label" for="tipoGasolina">Tipo Gasolina</label>
-            <select class="form-control" id="tipoGasolina" ng-model='tipoGasolina' required>
-              <option value="magna" selected>Magna</option>
-              <option value="premium">Premium</option>
+            <label class="control-label" for="selectedCategory">Categoria</label>
+            <select class="form-control" id="selectedCategory" ng-model='selectedCategory' required>
+                <option value="" selected>-- Selecciona una Categoria --</option>
+                <option ng-repeat="category in categories" value="{{category.cat_id}}">{{category.cat_name}}</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label class="control-label" for="montoGasolina">Monto Gasolina</label>
+            <label class="control-label" for="montoRegistrar">Monto $</label>
             <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" id="montoGasolina" ng-model='montoGasolina' required>
+                <input type="number" class="form-control" id="montoRegistrar" ng-model='montoRegistrar' required>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label" for="kilometraje">Kilometraje</label>
-            <input type="number" class="form-control" id="kilometraje" ng-model='kilometraje' required>
-            <label style="font-size: 10px;">Último Kilometraje registrado: {{ ultimoKilometraje }}</label>
+            <label class="control-label" for="selectedPaymentMethod">Forma de Pago</label>
+            <select class="form-control" id="selectedPaymentMethod" ng-model='selectedPaymentMethod' required>
+                <option value="" selected>-- Selecciona un método de Pago --</option>
+                <option ng-repeat="payment in paymentMethods" value="{{payment.pmt_id}}">{{payment.pmt_name}}</option>
+            </select>
         </div>
+
+        <div class="form-group">
+            <label class="control-label" for="selectedBank">Banco</label>
+            <select class="form-control" id="selectedBank" ng-model='selectedBank' required>
+                <option value="" selected>-- Selecciona un Banco --</option>
+                <option ng-repeat="bank in banks" value="{{bank.bank_id}}">{{bank.bank_name}}</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <button 
                 type="button" 
                 class="btn btn-primary btn-lg" 
                 ng-click='fn.guardar()'>
-                Guardar Gasolina
+                Registrar Datos
             </button>
         </div>
     </form>
 
 </div>
-
 
 <footer class="container-fluid text-center">
     <p>Desarrollo por José Noé Hernández Vivanco | Universidad Autonoma de Guadalajara</p>

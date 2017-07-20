@@ -49,6 +49,26 @@ angular.module('mobieApp')
           transformRequest: transform
       });
     }
-    
+
+    // --------- Financial Log Rest Services -----------
+    dataFactory.getCategories = function(){
+        return $http.get(restUrl + '/get/categories');
+    }
+
+    dataFactory.getPaymentMethods = function(){
+        return $http.get(restUrl + '/get/paymentmethods');
+    }
+
+    dataFactory.getBanks = function(){
+        return $http.get(restUrl + '/get/banks');
+    }
+
+    dataFactory.storeFinancialLog = function(data){
+        return $http.post(restUrl + '/store/financial/log', data, {
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+            transformRequest: transform
+        });
+    }
+
     return dataFactory;
 }]);

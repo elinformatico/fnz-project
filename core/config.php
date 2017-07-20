@@ -4,11 +4,14 @@
 		define('TEMPLATE', 'peliculas');	
 
 	} else if(isset($_REQUEST['v']) && $_REQUEST['v'] == 'fnz') {
-		define('TEMPLATE', 'gasolina');	
+		define('TEMPLATE', 'gasolina');
+
+	} else if(isset($_REQUEST['v']) && $_REQUEST['v'] == 'flog') {
+        define('TEMPLATE', 'financial-log');
 
 	} else {
-		header('Location: http://me.noehdez.info');
-	}
+        header('Location: http://me.noehdez.info');
+    }
 
 	$app_base = strstr($_SERVER['HTTP_HOST'], 'localhost') ? 
 

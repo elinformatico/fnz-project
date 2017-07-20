@@ -67,12 +67,9 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Inicio</a></li>
-          <li><a href="#">Actores</a></li>
-          <li><a href="#">Directores</a></li>
-          <li><a href="#">Escritores</a></li>
-          <li><a href="#">Generos</a></li>
-          <li><a href="#">Busqueda Avanzada</a></li>
+            <li class="active"><a href="?v=true">Mobie</a></li>
+            <li><a href="?v=fnz">Gasolina</a></li>
+            <li><a href="?v=flog">Gastos / Ingresos</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

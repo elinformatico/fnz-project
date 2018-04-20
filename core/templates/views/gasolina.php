@@ -111,8 +111,25 @@
         <div class="form-group">
             <label class="control-label" for="kilometraje">Kilometraje</label>
             <input type="number" class="form-control" id="kilometraje" ng-model='kilometraje' required>
-            <label style="font-size: 10px;">Último Kilometraje registrado: {{ ultimoKilometraje }}</label>
+            <label style="font-size: 10px;">Último Kilometraje registrado: {{ultimoKilometraje | number}}</label>
         </div>
+
+        <div class="form-group">
+            <label class="control-label" for="selectedPaymentMethod">Forma de Pago</label>
+            <select class="form-control" id="selectedPaymentMethod" ng-change="changeMethod()" ng-model='selectedPaymentMethod' required>
+                <option value="" selected>-- Selecciona un método de Pago --</option>
+                <option ng-repeat="payment in paymentMethods" value="{{payment.pmt_id}}">{{payment.pmt_name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group" ng-show="mostrarBancos">
+            <label class="control-label" for="selectedBank">Banco</label>
+            <select class="form-control" id="selectedBank" ng-model='selectedBank' required>
+                <option value="" selected>-- Selecciona un Banco --</option>
+                <option ng-repeat="bank in banks" value="{{bank.bank_id}}">{{bank.bank_name}}</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <button 
                 type="button" 

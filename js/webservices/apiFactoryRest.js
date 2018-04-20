@@ -59,6 +59,10 @@ angular.module('mobieApp')
         return $http.get(restUrl + '/get/paymentmethods');
     }
 
+    dataFactory.getPaymentMethodsByType = function(type){
+        return $http.get(restUrl + '/get/paymentmethods/' + type);
+    }
+
     dataFactory.getBanks = function(){
         return $http.get(restUrl + '/get/banks');
     }

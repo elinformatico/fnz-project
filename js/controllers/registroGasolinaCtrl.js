@@ -3,34 +3,94 @@ angular.module("mobieApp")
 	     ["$rootScope","$scope","$http","$compile","$q","$uibModal","$log","apiFactoryRest","growlService",  
 function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiFactoryRest,  growlService ) {
 
+	// Datos obtenidos de la Base de Datos
+    $scope.paymentMethods = {};
+    $scope.banks = {};
+
 	// Dato por default
 	$scope.tipoGasolina = 'magna';
 	$scope.ultimoKilometraje = '0';
+	$scope.selectedPaymentMethod = '';
+	$scope.textSelectedPaymentMethod = '';
+	$scope.mostrarBancos = false;
 
 	$scope.datos = {};
+	$scope.showBank = false;
+
+	$scope.changeMethod = function(){
+		for(var i=0; i < $scope.paymentMethods.length; i++){
+			//console.log($scope.paymentMethods[i].pmt_id);
+			if($scope.paymentMethods[i].pmt_id == $scope.selectedPaymentMethod)
+			{
+                $scope.textSelectedPaymentMethod =  $scope.paymentMethods[i].pmt_name;
+            }
+		}
+        $scope.mostrarBancos = $scope.textSelectedPaymentMethod !== 'Efectivo';
+		// console.log("Text Selected Value -->", $scope.textSelectedPaymentMethod);
+	}
+
 
 	$scope.fn = {
 		init : function(){
 			this.getKilometraje();
+			this.loadPaymentMethods();
+			this.loadBanks();
 		},
 		validarFormulario : function(){
 			return (($scope.litros != undefined && 
 				    $scope.tipoGasolina != undefined && 
 				    $scope.montoGasolina != undefined && 
-				    $scope.kilometraje != undefined) &&
+				    $scope.kilometraje != undefined &&
+				    $scope.selectedPaymentMethod) &&
 
 					$scope.litros != '' && 
 				    $scope.tipoGasolina != '' && 
 				    $scope.montoGasolina != '' && 
-				    $scope.kilometraje != ''
+				    $scope.kilometraje != '' &&
+				    $scope.selectedPaymentMethod != ''
 			);
 		},
+        loadPaymentMethods : function(){
+            // console.log('Loading Payment Methods:');
+            apiFactoryRest.getPaymentMethodsByType('gasolina')
+                .success(function(rs){
+
+                    if(rs.status === 'success'){
+                        $scope.paymentMethods = rs.paymentMethods;
+                        // console.log($scope.paymentMethods);
+
+                    } else if(rs.status === 'error'){
+                        growlService.error('Mensaje Sistema', rs.msg);
+                    }
+                })
+                .error(function(err){
+                    growlService.error('Mensaje Sistema', err);
+                });
+        },
+        loadBanks : function(){
+            // console.log('Loading Banks:');
+            apiFactoryRest.getBanks ()
+                .success(function(rs){
+
+                    if(rs.status === 'success'){
+                        $scope.banks = rs.banks;
+                        // console.log($scope.banks);
+
+                    } else if(rs.status === 'error'){
+                        growlService.error('Mensaje Sistema', rs.msg);
+                    }
+                })
+                .error(function(err){
+                    growlService.error('Mensaje Sistema', err);
+                });
+        },
 		getKilometraje : function() {
 			
 			apiFactoryRest.getMaximoKilometraje()
 			.success(function(rs){
 				if(rs.status === 'success'){
 					$scope.ultimoKilometraje = rs.kilometraje;
+					$scope.kilometraje = rs.kilometraje;
 
 				} else if(rs.status === 'error'){
 					$scope.ultimoKilometraje = 'Error Sistema';
@@ -56,6 +116,8 @@ function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiF
 					if(rs.status === 'success'){
 						growlService.notice('Mensaje Sistema', rs.msg);
 
+						$scope.fn.guardarLogFinanzas();
+
 						$scope.litros = '';
 					    $scope.tipoGasolina = 'magna';
 					    $scope.montoGasolina = '';
@@ -71,6 +133,33 @@ function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiF
 			} else {
 				growlService.warning('Mensaje Sistema', '¡Por favor llene todos los campos!');
 			}
+		},
+		guardarLogFinanzas : function() {
+
+			$scope.datos = {
+                log_user_id : 0,
+                log_description : 'Carga de ' + $scope.litros + ' litros de Gasolina',
+                log_amount      : $scope.montoGasolina,
+                log_cat_id_fk   : '8', // Categoria --> Gasolina/Combustible
+                log_pmt_id_kf   : $scope.selectedPaymentMethod,
+                // Si se muestra bancos, que mande su ID, en caso contrario, que mande 1, que no aplica
+                log_bank_id_fk  : ($scope.mostrarBancos) ? $scope.selectedBank : 1
+			}
+			
+			apiFactoryRest.storeFinancialLog( $scope.datos )
+			.success(function(rs){
+				if(rs.status === 'success'){
+					
+					$scope.selectedPaymentMethod = '';
+                    $scope.selectedBank = '';
+
+				} else if(rs.status === 'error'){
+					growlService.error('Mensaje Sistema', rs.msg);
+				}
+			})
+			.error(function(err){
+				growlService.error('Mensaje Sistema', err);
+			});
 		}
 	};
 	$scope.fn.init();

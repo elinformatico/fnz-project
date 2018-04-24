@@ -90,7 +90,7 @@ function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiF
 			.success(function(rs){
 				if(rs.status === 'success'){
 					$scope.ultimoKilometraje = rs.kilometraje;
-					$scope.kilometraje = rs.kilometraje;
+					$scope.kilometraje = parseInt(rs.kilometraje);
 
 				} else if(rs.status === 'error'){
 					$scope.ultimoKilometraje = 'Error Sistema';

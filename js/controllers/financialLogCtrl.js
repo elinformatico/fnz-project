@@ -37,8 +37,7 @@ function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiF
                .error(function(err){
                     growlService.error('Mensaje Sistema', err);
                });
-		},
-		loadPaymentMethods : function(){
+		},loadPaymentMethods : function(){
             // console.log('Loading Payment Methods:');
             apiFactoryRest.getPaymentMethods ()
                 .success(function(rs){
@@ -54,8 +53,8 @@ function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiF
                 .error(function(err){
                     growlService.error('Mensaje Sistema', err);
                 });
-		},
-		loadBanks : function(){
+        },
+        loadBanks : function(){
             // console.log('Loading Banks:');
             apiFactoryRest.getBanks ()
                 .success(function(rs){
@@ -71,7 +70,8 @@ function ( $rootScope,  $scope,  $http,  $compile,  $q,  $uibModal,  $log,  apiF
                 .error(function(err){
                     growlService.error('Mensaje Sistema', err);
                 });
-		},
+        },
+
 		validarFormulario : function(){
 			return (($scope.descripcion != undefined &&
 				    $scope.montoRegistrar != undefined &&

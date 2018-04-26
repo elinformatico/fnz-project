@@ -39,8 +39,8 @@ angular.module('mobieApp')
         return $http.get( restUrl + '/movies/actors/' + movieId );
     }
 
-    dataFactory.getMaximoKilometraje = function(){
-        return $http.get( restUrl + '/get/kilometraje');
+    dataFactory.getMaximoKilometraje = function(carId){
+        return $http.get( restUrl + '/get/kilometraje/' + carId);
     }
 
     dataFactory.storeGasolina = function(data){
@@ -65,6 +65,10 @@ angular.module('mobieApp')
 
     dataFactory.getBanks = function(){
         return $http.get(restUrl + '/get/banks');
+    }
+
+    dataFactory.getCars = function(){
+        return $http.get(restUrl + '/get/cars');
     }
 
     dataFactory.storeFinancialLog = function(data){

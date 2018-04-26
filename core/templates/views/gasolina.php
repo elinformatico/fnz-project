@@ -87,6 +87,15 @@
   <div class="container">    
 
     <form name='frmGasolina' novalidate>
+        
+        <div class="form-group">
+            <label class="control-label" for="selectedCar">Vehículo</label>
+            <select class="form-control" id="selectedCar" ng-change="onChangeCar(selectedCar)" ng-model='selectedCar' required>
+                <option value="" selected>-- Selecciona un Vehículo --</option>
+                <option ng-repeat="car in cars" value="{{car.car_id}}">{{car.car_alias}}</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label class="control-label" for="litros"># Litros</label>
             <input type="number" class="form-control" id="litros" ng-model='litros' required>
